@@ -2761,7 +2761,7 @@ op_db: List[OpInfo] = [
     OpInfo('pow',
            dtypes=all_types_and_complex_and(torch.half, torch.bfloat16),
            sample_inputs_func=sample_inputs_pow,
-           test_inplace_grad=False,
+           supports_inplace_autograd=False,
            assert_autodiffed=True,
            skips=(
                # Inplace variants currently use the same sample inputs as the method for which
