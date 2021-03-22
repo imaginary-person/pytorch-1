@@ -2548,9 +2548,6 @@ op_db: List[OpInfo] = [
            sample_inputs_func=sample_inputs_linalg_norm,
            aten_name='linalg_norm',
            skips=(
-               # "pow" not implemented for 'BFloat16' or 'half'
-               SkipInfo('TestOpInfo', 'test_supported_backward',
-                        dtypes=(torch.bfloat16, torch.float16)),
                # linalg.norm does not correctly warn when resizing out= inputs
                SkipInfo('TestCommon', 'test_out'),
            )),
@@ -2582,9 +2579,6 @@ op_db: List[OpInfo] = [
            sample_inputs_func=sample_inputs_linalg_vector_norm,
            aten_name='linalg_vector_norm',
            skips=(
-               # "pow" not implemented for 'BFloat16' or 'half'
-               SkipInfo('TestOpInfo', 'test_supported_backward',
-                        dtypes=(torch.bfloat16, torch.float16)),
                # linalg.vector_norm does not correctly warn when resizing out= inputs
                SkipInfo('TestCommon', 'test_out'),
            )),
@@ -2916,9 +2910,6 @@ op_db: List[OpInfo] = [
                    assert_autodiffed=True,
                    safe_casts_outputs=True,
                    skips=(
-                       # "pow" not implemented for 'BFloat16' or 'half'
-                       SkipInfo('TestOpInfo', 'test_supported_backward',
-                                dtypes=(torch.bfloat16, torch.float16)),
                        SkipInfo('TestUnaryUfuncs', 'test_reference_numerics_extremal',
                                 device_type='cpu', dtypes=[torch.bfloat16]),
                        SkipInfo('TestUnaryUfuncs', 'test_reference_numerics_hard',
