@@ -2759,32 +2759,33 @@ op_db: List[OpInfo] = [
                    dtypesIfCUDA=all_types_and_complex_and(torch.half, torch.bfloat16),
                    assert_autodiffed=True,),
     OpInfo('pow',
-               dtypes=all_types_and_complex_and(torch.half, torch.bfloat16),
-               sample_inputs_func=sample_inputs_pow,
-               test_inplace_grad=False,
-               assert_autodiffed=True,
-               skips=(
-                   # Inplace variants currently use the same sample inputs as the method for which
-                   # they are a variant, causing this test to fail because of broadcasting semantics.
-                   # This test should be enabled after GitHub PR 53014 would land.
-                   # Reference: https://github.com/pytorch/pytorch/issues/50747
-                   SkipInfo('TestCommon', 'test_variant_consistency_eager',
-                            dtypes=[torch.bfloat16, torch.float16, torch.float32, torch.float64]),
-                   # Due to AVX2 curently not being fully supported for Float16, log_vml_cpu can't be enabled
-                   # for Float16, causing this test to fail.
-                   SkipInfo('TestCommon', 'test_variant_consistency_jit',
-                            device_type='cpu', dtypes=[torch.float16]),
-                   # JIT doesn't currently support complex literals.
-                   # This test should be enabled after GitHub PR 52881 would land.
-                   # Reference: https://github.com/pytorch/pytorch/issues/51996#issuecomment-791517296
-                   SkipInfo('TestCommon', 'test_variant_consistency_jit',
-                            dtypes=[torch.complex64, torch.complex128]),
-                   # Bool is not present in the dtypes list, but pow on bool tensors is currently supported in the
-                   # sense that they're casted to other dtypes, so there's no point in running OpInfo tests on bool.
-                   # Moreover, adding bool to the dtypes list results in Runtime errors when tests are run for it.
-                   # But since invoking torch.pow() on a tensor with dtype bool doesn't result in a Runtime error,
-                   # as otherwise expected by this test, it needs to be skipped.
-                   SkipInfo('TestOpInfo', 'test_unsupported_dtypes', dtypes=[torch.bool]),)),
+           dtypes=all_types_and_complex_and(torch.half, torch.bfloat16),
+           sample_inputs_func=sample_inputs_pow,
+           test_inplace_grad=False,
+           assert_autodiffed=True,
+           skips=(
+               # Inplace variants currently use the same sample inputs as the method for which
+               # they are a variant, causing this test to fail because of broadcasting semantics.
+               # This test should be enabled after GitHub PR 53014 would land.
+               # Reference: https://github.com/pytorch/pytorch/issues/50747
+               SkipInfo('TestCommon', 'test_variant_consistency_eager',
+                        dtypes=[torch.bfloat16, torch.float16, torch.float32, torch.float64]),
+               # Due to AVX2 curently not being fully supported for Float16, log_vml_cpu can't be enabled
+               # for Float16, causing this test to fail.
+               SkipInfo('TestCommon', 'test_variant_consistency_jit',
+                        device_type='cpu', dtypes=[torch.float16]),
+               # JIT doesn't currently support complex literals.
+               # This test should be enabled after GitHub PR 52881 would land.
+               # Reference: https://github.com/pytorch/pytorch/issues/51996#issuecomment-791517296
+               SkipInfo('TestCommon', 'test_variant_consistency_jit',
+                        dtypes=[torch.complex64, torch.complex128]),
+               # Bool is not present in the dtypes list, but pow on bool tensors is currently supported in the
+               # sense that they're casted to other dtypes, so there's no point in running OpInfo tests on bool.
+               # Moreover, adding bool to the dtypes list results in Runtime errors when tests are run for it.
+               # But since invoking torch.pow() on a tensor with dtype bool doesn't result in a Runtime error,
+               # as otherwise expected by this test, it needs to be skipped.
+               SkipInfo('TestOpInfo', 'test_unsupported_dtypes', dtypes=[torch.bool]),)
+           ),
     OpInfo('prod',
            dtypes=all_types_and_complex_and(torch.bool),
            dtypesIfCUDA=all_types_and_complex_and(torch.bool, torch.float16, torch.bfloat16),
