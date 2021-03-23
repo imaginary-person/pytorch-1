@@ -1413,53 +1413,53 @@ def sample_inputs_pow(op_info, device, dtype, requires_grad):
             ((1,), (S, S, S)),
             ((S, 1, S), (1, S, 1)),
         )
-        samples = list(SampleInput((make_tensor(base_size, dtype=dtype, device=device,
+        samples = list(SampleInput(make_tensor(base_size, dtype=dtype, device=device,
                                                 high=5, low=0,
-                                                requires_grad=requires_grad) + 1e-3),
+                                                requires_grad=requires_grad) + 1e-3,
                                    args=(make_tensor(exp_size, dtype=dtype, device=device,
                                                      high=1, low=0,
                                                      requires_grad=requires_grad) + 0.1,))
                        for base_size, exp_size in arg_tuples)
-        samples.append(SampleInput((make_tensor((), low=1e-3, high=1e-3 + 1, requires_grad=True,
-                                                device=device, dtype=dtype)),
+        samples.append(SampleInput(make_tensor((), low=1e-3, high=1e-3 + 1, requires_grad=True,
+                                                device=device, dtype=dtype),
                                    args=(make_tensor((), low=0.1, high=1.1,
                                                      device=device, dtype=dtype),)))
-        samples.append(SampleInput((make_tensor((S, S, S), dtype=dtype, device=device,
+        samples.append(SampleInput(make_tensor((S, S, S), dtype=dtype, device=device,
                                                 high=5, low=0,
-                                                requires_grad=requires_grad) + 1e-3),
+                                                requires_grad=requires_grad) + 1e-3,
                                    args=(make_tensor((), low=0.1, high=1.1,
                                                      device=device, dtype=dtype),)))
-        samples.append(SampleInput((make_tensor((), low=1e-3, high=1e-3 + 1, requires_grad=True,
-                                                device=device, dtype=dtype)),
+        samples.append(SampleInput(make_tensor((), low=1e-3, high=1e-3 + 1, requires_grad=True,
+                                                device=device, dtype=dtype),
                                    args=(make_tensor((1, S, 1), dtype=dtype, device=device,
                                                      high=1, low=0,
                                                      requires_grad=requires_grad) + 0.1,)))
-        samples.append(SampleInput((make_tensor((S, S, S), dtype=dtype, device=device,
+        samples.append(SampleInput(make_tensor((S, S, S), dtype=dtype, device=device,
                                                 high=5, low=0,
-                                                requires_grad=requires_grad) + 1e-3,),
+                                                requires_grad=requires_grad) + 1e-3,
                                    args=(3.14,)))
-        samples.append(SampleInput((make_tensor((), low=1e-3, high=1e-3 + 1, requires_grad=True,
-                                                device=device, dtype=dtype),),
+        samples.append(SampleInput(make_tensor((), low=1e-3, high=1e-3 + 1, requires_grad=True,
+                                                device=device, dtype=dtype),
                                    args=(3.14,)))
     elif dtype in [torch.complex64, torch.complex128]:
-        samples.append(SampleInput((make_tensor((S, S, S), dtype=dtype, device=device,
+        samples.append(SampleInput(make_tensor((S, S, S), dtype=dtype, device=device,
                                                 high=5, low=0,
-                                                requires_grad=requires_grad) + 1e-3 * (1 + 1j),),
+                                                requires_grad=requires_grad) + 1e-3 * (1 + 1j),
                                    args=(3.14,)))
-        samples.append(SampleInput((make_tensor((), low=0, high=1, dtype=dtype, device=device,
-                                                requires_grad=True) + 1e-3 * (1 + 1j),),
+        samples.append(SampleInput(make_tensor((), low=0, high=1, dtype=dtype, device=device,
+                                                requires_grad=True) + 1e-3 * (1 + 1j),
                                    args=(3.14,)))
-        samples.append(SampleInput((make_tensor((), device=device, dtype=dtype, low=0, high=1,
-                                                requires_grad=True) + 1e-3 * (1 + 1j),),
+        samples.append(SampleInput(make_tensor((), device=device, dtype=dtype, low=0, high=1,
+                                                requires_grad=True) + 1e-3 * (1 + 1j),
                                    args=(3.14j,)))
     else:
         arg_tuple = (1, 2, 3)
-        samples = list(SampleInput((make_tensor((S, S, S), device, dtype,
-                                                requires_grad=requires_grad),),
+        samples = list(SampleInput(make_tensor((S, S, S), device, dtype,
+                                                requires_grad=requires_grad),
                                    args=(arg,))
                        for arg in arg_tuple)
-        samples.append(SampleInput((make_tensor((S, S, S), device, dtype,
-                                                requires_grad=requires_grad),),
+        samples.append(SampleInput(make_tensor((S, S, S), device, dtype,
+                                                requires_grad=requires_grad),
                                    args=(make_tensor((S, S, S), device, dtype,
                                                      requires_grad=requires_grad),)))
 
