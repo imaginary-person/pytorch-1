@@ -38,12 +38,11 @@ class Context;
 } // namespace transport
 
 namespace channel {
-template <typename TBuffer>
 class Context;
-using CpuContext = Context<CpuBuffer>;
+using CpuContext = Context;
 
 #ifdef USE_CUDA_NOT_ROCM
-using CudaContext = Context<CudaBuffer>;
+using CudaContext = Context;
 #endif
 
 } // namespace channel
@@ -231,7 +230,7 @@ class TensorPipeAgent : public RpcAgent {
   void removeFromTimeoutMap(uint64_t messageId);
 
   // Populates workerIdToInfo_ and workerNameToInfo_ using addressStore_
-  void collectNames();
+  void prepareNames();
 
   const std::string& findWorkerURL(const WorkerInfo& worker) const;
 
