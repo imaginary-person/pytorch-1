@@ -2795,10 +2795,10 @@ op_db: List[OpInfo] = [
                # This test should be enabled after GitHub PR 53014 would land.
                # Reference: https://github.com/pytorch/pytorch/issues/50747
                SkipInfo('TestCommon', 'test_variant_consistency_eager',
-                        dtypes=[torch.bfloat16, torch.float16, torch.float32, torch.float64]),
+                        dtypes=[torch.float32, torch.float64]),
                # Due to AVX2 curently not being fully supported for Float16, log_vml_cpu can't be enabled
                # for Float16, causing this test to fail.
-               SkipInfo('TestCommon', 'test_variant_consistency_jit',
+               SkipInfo('TestOpInfo', 'test_supported_backward',
                         device_type='cpu', dtypes=[torch.float16]),
                # JIT doesn't currently support complex literals.
                # This test should be enabled after GitHub PR 52881 would land.
