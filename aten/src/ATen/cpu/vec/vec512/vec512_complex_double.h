@@ -160,21 +160,13 @@ public:
   // Peter Cordes recommends not using _mm256_hadd_ps because it has a high latency
   // and blocks port longer than other clever alternatives.
   static __m512d hadd_pd(__m512d a, __m512d b) {
-    __m256d first_half_a = _mm512_extractf64x4_pd(a, 0);
-    __m256d second_half_a = _mm512_extractf64x4_pd(a, 1);
-    __m256d first_half_b = _mm512_extractf64x4_pd(b, 0);
-    __m256d second_half_b = _mm512_extractf64x4_pd(b, 1);
-    __m256d first_half_hadd = _mm256_hadd_pd(first_half_a, first_half_b);
-    __m256d second_half_hadd = _mm256_hadd_pd(second_half_a, second_half_b);
+    __m256d first_half_hadd = _mm256_hadd_pd(_mm512_castpd512_pd256(a), _mm512_castpd512_pd256(b));
+    __m256d second_half_hadd = _mm256_hadd_pd(_mm512_extractf64x4_pd(a, 1), _mm512_extractf64x4_pd(b, 1));
     return _mm512_insertf64x4(_mm512_castpd256_pd512(first_half_hadd), second_half_hadd, 1);
   }
   static __m512d hsub_pd(__m512d a, __m512d b) {
-    __m256d first_half_a = _mm512_extractf64x4_pd(a, 0);
-    __m256d second_half_a = _mm512_extractf64x4_pd(a, 1);
-    __m256d first_half_b = _mm512_extractf64x4_pd(b, 0);
-    __m256d second_half_b = _mm512_extractf64x4_pd(b, 1);
-    __m256d first_half_hsub = _mm256_hsub_pd(first_half_a, first_half_b);
-    __m256d second_half_hsub = _mm256_hsub_pd(second_half_a, second_half_b);
+    __m256d first_half_hsub = _mm256_hsub_pd(_mm512_castpd512_pd256(a), _mm512_castpd512_pd256(b));
+    __m256d second_half_hsub = _mm256_hsub_pd(_mm512_extractf64x4_pd(a, 1), _mm512_extractf64x4_pd(b, 1));
     return _mm512_insertf64x4(_mm512_castpd256_pd512(first_half_hsub), second_half_hsub, 1);
   }
   __m512d abs_2_() const {
